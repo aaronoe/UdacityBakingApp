@@ -1,11 +1,15 @@
 package de.aaronoe.baking.ui.list;
 
-import android.support.v7.app.AppCompatActivity;
+import android.arch.lifecycle.LifecycleActivity;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -19,9 +23,10 @@ import de.aaronoe.baking.BakingApp;
 import de.aaronoe.baking.R;
 import de.aaronoe.baking.model.Recipe;
 import de.aaronoe.baking.model.remote.ApiService;
+import de.aaronoe.baking.ui.detail.DetailActivity_;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends AppCompatActivity implements ListContract.View, RecipeAdapter.RecipeClickListener {
+public class MainActivity extends LifecycleActivity implements ListContract.View, RecipeAdapter.RecipeClickListener {
 
     @Inject
     ApiService apiService;
@@ -31,14 +36,20 @@ public class MainActivity extends AppCompatActivity implements ListContract.View
     @ViewById(R.id.main_list_pb)
     ProgressBar mainListPb;
 
-    ListContract.Presenter mPresenter;
+    private static final String TAG = "MainActivity";
 
     @AfterViews
     void init() {
         ((BakingApp) getApplication()).getNetComponent().inject(this);
 
-        mPresenter = new ListPresenterImpl(this, apiService);
-        mPresenter.getRecipes();
+        ViewModelProviders.of(this).get(ListViewModel.class).getRecipes().observe(this, new Observer<List<Recipe>>() {
+            @Override
+            public void onChanged(@Nullable List<Recipe> recipes) {
+                Log.d(TAG, "onChanged() called with: recipes = [" + recipes + "]");
+                showItems(recipes);
+            }
+        });
+
     }
 
 
@@ -61,7 +72,9 @@ public class MainActivity extends AppCompatActivity implements ListContract.View
     }
 
     @Override
-    public void clickOnRecipe(int id) {
-        Toast.makeText(this, "Clicked: " + id, Toast.LENGTH_SHORT).show();
+    public void clickOnRecipe(Recipe recipe) {
+        Intent intent = new Intent(this, DetailActivity_.class);
+        intent.putExtra(getString(R.string.INTENT_KEY_RECIPE), recipe);
+        startActivity(intent);
     }
 }
