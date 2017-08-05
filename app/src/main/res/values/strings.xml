@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Baking</string>
     <string name="INTENT_KEY_RECIPE">INTENT_KEY_RECIPE</string>
+    <string name="quantity_ingredient">%1$.2f %2$s</string>
+    <string name="step_number">Step %d</string>
+    <string name="INTENT_KEY_STEP_LIST">INTENT_KEY_STEP_LIST</string>
+    <string name="INTENT_KEY_POSITION">INTENT_KEY_POSITION</string>
 </resources>

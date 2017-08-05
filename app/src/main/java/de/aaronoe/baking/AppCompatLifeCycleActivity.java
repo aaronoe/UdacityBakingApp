@@ -1,0 +1,20 @@
+package de.aaronoe.baking;
+
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
+import android.support.v7.app.AppCompatActivity;
+
+/**
+ * Class used to support {@link AppCompatActivity} features while also being a {@link LifecycleRegistryOwner}
+ * Created by aoe on 8/5/17.
+ */
+
+public class AppCompatLifeCycleActivity extends AppCompatActivity implements LifecycleRegistryOwner {
+
+    private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
+
+    @Override
+    public LifecycleRegistry getLifecycle() {
+        return mRegistry;
+    }
+}

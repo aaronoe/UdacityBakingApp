@@ -1,6 +1,5 @@
 package de.aaronoe.baking.ui.list;
 
-import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -19,6 +18,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import de.aaronoe.baking.AppCompatLifeCycleActivity;
 import de.aaronoe.baking.BakingApp;
 import de.aaronoe.baking.R;
 import de.aaronoe.baking.model.Recipe;
@@ -26,7 +26,7 @@ import de.aaronoe.baking.model.remote.ApiService;
 import de.aaronoe.baking.ui.detail.DetailActivity_;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends LifecycleActivity implements ListContract.View, RecipeAdapter.RecipeClickListener {
+public class MainActivity extends AppCompatLifeCycleActivity implements ListContract.View, RecipeAdapter.RecipeClickListener {
 
     @Inject
     ApiService apiService;
