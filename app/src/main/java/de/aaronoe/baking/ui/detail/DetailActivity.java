@@ -60,7 +60,7 @@ public class DetailActivity extends AppCompatActivity implements DetailNavigatio
 
     public void updateDetailLayout(int i) {
         // This condition is true when the width of the screen is greater than 600dp
-        detailFragment = StepDetailFragment_.builder().setmStep(mRecipe.getSteps().get(i)).build();
+        detailFragment = StepDetailFragment_.builder().setmStep(mRecipe.getSteps().get(i)).setIsTablet(true).build();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -74,8 +74,7 @@ public class DetailActivity extends AppCompatActivity implements DetailNavigatio
             updateDetailLayout(position - 1);
         } else {
             Intent intentToDetailActivity = new Intent(this, PhoneStepDetailActivity_.class);
-            intentToDetailActivity.putParcelableArrayListExtra(getString(R.string.INTENT_KEY_STEP_LIST),
-                    (ArrayList<? extends Parcelable>) mRecipe.getSteps());
+            intentToDetailActivity.putExtra(getString(R.string.INTENT_KEY_STEP_LIST), mRecipe);
             intentToDetailActivity.putExtra(getString(R.string.INTENT_KEY_POSITION), position);
             startActivity(intentToDetailActivity);
         }

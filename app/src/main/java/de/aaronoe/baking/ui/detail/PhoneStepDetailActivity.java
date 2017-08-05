@@ -8,12 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
 import de.aaronoe.baking.R;
+import de.aaronoe.baking.model.Recipe;
 import de.aaronoe.baking.model.Step;
 import me.relex.circleindicator.CircleIndicator;
 
@@ -31,27 +31,33 @@ public class PhoneStepDetailActivity extends AppCompatActivity {
     @ViewById(R.id.detail_viewpager)
     ViewPager viewPager;
 
-    List<Step> mStepList;
+    Recipe mRecipe;
     int selectedItemIndex = 0;
+    StepPagerAdapter stepAdapter;
+
 
     @AfterViews
     void init() {
 
         if (getIntent().hasExtra(getString(R.string.INTENT_KEY_STEP_LIST))) {
-            mStepList = getIntent().getParcelableArrayListExtra(getString(R.string.INTENT_KEY_STEP_LIST));
-            selectedItemIndex = getIntent().getIntExtra(getString(R.string.INTENT_KEY_STEP_LIST), 0);
-            StepPagerAdapter stepAdapter = new StepPagerAdapter(getSupportFragmentManager(), mStepList);
+            mRecipe = getIntent().getParcelableExtra(getString(R.string.INTENT_KEY_STEP_LIST));
+            selectedItemIndex = getIntent().getIntExtra(getString(R.string.INTENT_KEY_POSITION), 0);
+            stepAdapter = new StepPagerAdapter(getSupportFragmentManager(), mRecipe.getSteps());
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
             viewPager.setAdapter(stepAdapter);
             viewPager.setCurrentItem(selectedItemIndex);
             pagerIndicator.setViewPager(viewPager);
         }
     }
 
-    class StepPagerAdapter extends FragmentStatePagerAdapter {
+
+    private class StepPagerAdapter extends FragmentStatePagerAdapter {
 
         List<Step> stepList;
 
-        public StepPagerAdapter(FragmentManager fragmentManager, List<Step> stepList) {
+        StepPagerAdapter(FragmentManager fragmentManager, List<Step> stepList) {
             super(fragmentManager);
             this.stepList = stepList;
         }
@@ -67,6 +73,5 @@ public class PhoneStepDetailActivity extends AppCompatActivity {
         }
 
     }
-
 
 }

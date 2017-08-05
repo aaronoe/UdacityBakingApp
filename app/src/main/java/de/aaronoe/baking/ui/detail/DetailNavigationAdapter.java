@@ -25,8 +25,8 @@ import static android.view.View.GONE;
 
 class DetailNavigationAdapter extends RecyclerView.Adapter<DetailNavigationAdapter.StepViewHolder> {
 
-    List<Step> stepList;
-    List<Ingredient> ingredientList;
+    private List<Step> stepList;
+    private List<Ingredient> ingredientList;
     private Context mContext;
     private StepClickCallback callback;
 
@@ -45,7 +45,6 @@ class DetailNavigationAdapter extends RecyclerView.Adapter<DetailNavigationAdapt
     public void onBindViewHolder(StepViewHolder holder, int position) {
         // Ingredients here:
         if (position == 0) {
-
             holder.nameTv.setText(getIngredientString(ingredientList));
             holder.numberTv.setVisibility(GONE);
         } else {
