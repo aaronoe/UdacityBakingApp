@@ -3,11 +3,13 @@ package de.aaronoe.baking.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Ingredient implements Parcelable
+import io.realm.RealmObject;
+
+public class Ingredient extends RealmObject implements Parcelable
 {
 
     @SerializedName("quantity")

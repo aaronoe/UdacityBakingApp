@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class PhoneStepDetailActivity extends AppCompatActivity {
     ViewPager viewPager;
 
     Recipe mRecipe;
+
     int selectedItemIndex = 0;
     StepPagerAdapter stepAdapter;
 

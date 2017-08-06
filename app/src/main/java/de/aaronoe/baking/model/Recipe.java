@@ -1,15 +1,18 @@
 
 package de.aaronoe.baking.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Recipe implements Parcelable
+import java.util.List;
+
+import io.realm.RealmList;
+import io.realm.RealmObject;
+
+public class Recipe extends RealmObject implements Parcelable
 {
 
     @SerializedName("id")
@@ -20,10 +23,10 @@ public class Recipe implements Parcelable
     private String name;
     @SerializedName("ingredients")
     @Expose
-    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+    private RealmList<Ingredient> ingredients = new RealmList<>();
     @SerializedName("steps")
     @Expose
-    private List<Step> steps = new ArrayList<Step>();
+    private RealmList<Step> steps = new RealmList<>();
     @SerializedName("servings")
     @Expose
     private Integer servings;
@@ -74,7 +77,7 @@ public class Recipe implements Parcelable
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(RealmList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -82,7 +85,7 @@ public class Recipe implements Parcelable
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(RealmList<Step> steps) {
         this.steps = steps;
     }
 

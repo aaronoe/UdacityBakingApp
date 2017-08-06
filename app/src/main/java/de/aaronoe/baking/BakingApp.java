@@ -6,6 +6,7 @@ import de.aaronoe.baking.di.component.DaggerNetComponent;
 import de.aaronoe.baking.di.component.NetComponent;
 import de.aaronoe.baking.di.modules.AppModule;
 import de.aaronoe.baking.di.modules.NetModule;
+import io.realm.Realm;
 import timber.log.Timber;
 
 /**
@@ -22,7 +23,10 @@ public class BakingApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Timber.plant(new Timber.DebugTree());
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
+        Realm.init(this);
 
         mNetComponent = DaggerNetComponent
                 .builder()
