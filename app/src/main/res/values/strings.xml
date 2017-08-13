@@ -6,4 +6,8 @@
     <string name="INTENT_KEY_STEP_LIST">INTENT_KEY_STEP_LIST</string>
     <string name="INTENT_KEY_POSITION">INTENT_KEY_POSITION</string>
     <string name="no_recipe_available">No recipe available</string>
+    <string name="app_logo">App logo</string>
+    <string name="ingredient_list">Ingredient List</string>
+    <string name="show_in_widget">Show in Widget</string>
+    <string name="circle">●</string>
 </resources>

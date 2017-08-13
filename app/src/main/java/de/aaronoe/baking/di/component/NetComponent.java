@@ -6,9 +6,11 @@ import dagger.Component;
 import de.aaronoe.baking.di.modules.AppModule;
 import de.aaronoe.baking.di.modules.NetModule;
 import de.aaronoe.baking.storage.RecipeInfoManager;
+import de.aaronoe.baking.ui.detail.DetailActivity;
 import de.aaronoe.baking.ui.list.ListViewModel;
 import de.aaronoe.baking.ui.list.MainActivity;
-import de.aaronoe.baking.widget.GridWidgetService;
+import de.aaronoe.baking.widget.IngredientListWidgetService;
+import de.aaronoe.baking.widget.RecipeWidgetProvider;
 
 /**
  * Created by private on 7/31/17.
@@ -21,7 +23,9 @@ public interface NetComponent {
 
     void inject(MainActivity mainActivity);
     void inject(ListViewModel viewModel);
-    void inject(GridWidgetService.GridRemoteViewsFactory remoteViewsFactory);
+    void inject(IngredientListWidgetService.GridRemoteViewsFactory remoteViewsFactory);
+    void inject(RecipeWidgetProvider recipeWidgetProvider);
     void inject(RecipeInfoManager recipeInfoManager);
+    void inject(DetailActivity detailActivity);
 
 }

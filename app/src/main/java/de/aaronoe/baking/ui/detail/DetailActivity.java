@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -11,14 +14,21 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import javax.inject.Inject;
+
+import de.aaronoe.baking.BakingApp;
 import de.aaronoe.baking.R;
 import de.aaronoe.baking.model.Recipe;
+import de.aaronoe.baking.storage.RecipeInfoManager;
 
 @EActivity(R.layout.activity_detail)
 public class DetailActivity extends AppCompatActivity implements DetailNavigationAdapter.StepClickCallback {
 
     @ViewById(R.id.master_list_rv)
     RecyclerView masterListRv;
+
+    @Inject
+    RecipeInfoManager recipeInfoManager;
 
     FrameLayout detailFrameLayout;
     Recipe mRecipe;
@@ -29,6 +39,8 @@ public class DetailActivity extends AppCompatActivity implements DetailNavigatio
 
     @AfterViews
     void init() {
+
+        ((BakingApp) getApplication()).getNetComponent().inject(this);
 
         isTwoPaneLayout = findViewById(R.id.detail_frame) != null;
 
@@ -75,5 +87,21 @@ public class DetailActivity extends AppCompatActivity implements DetailNavigatio
             intentToDetailActivity.putExtra(getString(R.string.INTENT_KEY_POSITION), position);
             startActivity(intentToDetailActivity);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_recipe_in_widget:
+                recipeInfoManager.saveRecipe(mRecipe);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
