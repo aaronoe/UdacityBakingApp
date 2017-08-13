@@ -5,4 +5,7 @@
     <string name="step_number">Step %d</string>
     <string name="INTENT_KEY_STEP_LIST">INTENT_KEY_STEP_LIST</string>
     <string name="INTENT_KEY_POSITION">INTENT_KEY_POSITION</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="no_recipe_available">No recipe available</string>
 </resources>

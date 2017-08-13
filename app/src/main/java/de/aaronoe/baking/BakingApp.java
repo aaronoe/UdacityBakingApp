@@ -2,7 +2,6 @@ package de.aaronoe.baking;
 
 import android.app.Application;
 
-import de.aaronoe.baking.di.component.DaggerNetComponent;
 import de.aaronoe.baking.di.component.NetComponent;
 import de.aaronoe.baking.di.modules.AppModule;
 import de.aaronoe.baking.di.modules.NetModule;
@@ -28,11 +27,12 @@ public class BakingApp extends Application {
         }
         Realm.init(this);
 
+/*
         mNetComponent = DaggerNetComponent
                 .builder()
                 .netModule(new NetModule(BASE_URL))
                 .appModule(new AppModule(this))
-                .build();
+                .build(); */
     }
 
     public NetComponent getNetComponent() {

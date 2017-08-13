@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'realm-android'
 
 
@@ -68,4 +69,8 @@ dependencies {
     compile "android.arch.lifecycle:extensions:1.0.0-alpha5"
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha5"
     provided 'javax.annotation:jsr250-api:1.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

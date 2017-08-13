@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import de.aaronoe.baking.db.RecipeDao;
 import de.aaronoe.baking.model.remote.ApiService;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -45,5 +46,10 @@ public class NetModule {
         return retrofit.create(ApiService.class);
     }
 
+    @Provides
+    @Singleton
+    RecipeDao provideRecipeDao() {
+        return new RecipeDao();
+    }
 
 }

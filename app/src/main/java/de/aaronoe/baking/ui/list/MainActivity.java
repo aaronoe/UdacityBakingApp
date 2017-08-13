@@ -16,20 +16,14 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import de.aaronoe.baking.AppCompatLifeCycleActivity;
 import de.aaronoe.baking.BakingApp;
 import de.aaronoe.baking.R;
 import de.aaronoe.baking.model.Recipe;
-import de.aaronoe.baking.model.remote.ApiService;
-import de.aaronoe.baking.ui.detail.DetailActivity_;
+import de.aaronoe.baking.ui.detail.DetailActivity;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatLifeCycleActivity implements ListContract.View, RecipeAdapter.RecipeClickListener {
-
-    @Inject
-    ApiService apiService;
 
     @ViewById(R.id.main_list_rv)
     RecyclerView mainListRv;
@@ -40,8 +34,6 @@ public class MainActivity extends AppCompatLifeCycleActivity implements ListCont
 
     @AfterViews
     void init() {
-        ((BakingApp) getApplication()).getNetComponent().inject(this);
-
         ViewModelProviders.of(this).get(ListViewModel.class).getRecipes().observe(this, new Observer<List<Recipe>>() {
             @Override
             public void onChanged(@Nullable List<Recipe> recipes) {
@@ -73,7 +65,7 @@ public class MainActivity extends AppCompatLifeCycleActivity implements ListCont
 
     @Override
     public void clickOnRecipe(Recipe recipe) {
-        Intent intent = new Intent(this, DetailActivity_.class);
+        Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(getString(R.string.INTENT_KEY_RECIPE), recipe);
         startActivity(intent);
     }

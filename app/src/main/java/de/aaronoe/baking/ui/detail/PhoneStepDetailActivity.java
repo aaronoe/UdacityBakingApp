@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
@@ -66,7 +65,8 @@ public class PhoneStepDetailActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return StepDetailFragment_.builder().setmStep(stepList.get(position)).build();
+            //return StepDetailFragment_.builder().setmStep(stepList.get(position)).build();
+            return null;
         }
 
         @Override

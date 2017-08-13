@@ -1,11 +1,9 @@
 package de.aaronoe.baking.ui.detail;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -13,13 +11,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
-
 import de.aaronoe.baking.R;
 import de.aaronoe.baking.model.Recipe;
-import io.realm.Realm;
-import io.realm.RealmResults;
-import rx.Subscriber;
 
 @EActivity(R.layout.activity_detail)
 public class DetailActivity extends AppCompatActivity implements DetailNavigationAdapter.StepClickCallback {
@@ -64,7 +57,7 @@ public class DetailActivity extends AppCompatActivity implements DetailNavigatio
 
     public void updateDetailLayout(int i) {
         // This condition is true when the width of the screen is greater than 600dp
-        detailFragment = StepDetailFragment_.builder().setmStep(mRecipe.getSteps().get(i)).setIsTablet(true).build();
+        //detailFragment = StepDetailFragment_.builder().setmStep(mRecipe.getSteps().get(i)).setIsTablet(true).build();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -77,7 +70,7 @@ public class DetailActivity extends AppCompatActivity implements DetailNavigatio
         if (isTwoPaneLayout) {
             updateDetailLayout(position - 1);
         } else {
-            Intent intentToDetailActivity = new Intent(this, PhoneStepDetailActivity_.class);
+            Intent intentToDetailActivity = new Intent(this, PhoneStepDetailActivity.class);
             intentToDetailActivity.putExtra(getString(R.string.INTENT_KEY_STEP_LIST), mRecipe);
             intentToDetailActivity.putExtra(getString(R.string.INTENT_KEY_POSITION), position);
             startActivity(intentToDetailActivity);
