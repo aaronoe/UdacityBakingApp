@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import de.aaronoe.baking.model.remote.ApiService;
+import io.realm.Realm;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -25,6 +26,12 @@ public class NetModule {
 
     public NetModule(String baseUrl) {
         mBaseUrl = baseUrl;
+    }
+
+    @Provides
+    @Singleton
+    Realm getDefaultRealmInstance() {
+        return Realm.getDefaultInstance();
     }
 
     @Provides

@@ -33,6 +33,7 @@ public class BakingApp extends Application {
                 .netModule(new NetModule(BASE_URL))
                 .appModule(new AppModule(this))
                 .build();
+
     }
 
     public NetComponent getNetComponent() {
