@@ -7,12 +7,10 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
-
-public class Recipe extends RealmObject implements Parcelable
+public class Recipe  implements Parcelable
 {
 
     @SerializedName("id")
@@ -23,10 +21,10 @@ public class Recipe extends RealmObject implements Parcelable
     private String name;
     @SerializedName("ingredients")
     @Expose
-    private RealmList<Ingredient> ingredients = new RealmList<>();
+    private List<Ingredient> ingredients = new ArrayList<>();
     @SerializedName("steps")
     @Expose
-    private RealmList<Step> steps = new RealmList<>();
+    private List<Step> steps = new ArrayList<>();
     @SerializedName("servings")
     @Expose
     private Integer servings;
@@ -77,7 +75,7 @@ public class Recipe extends RealmObject implements Parcelable
         return ingredients;
     }
 
-    public void setIngredients(RealmList<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -85,7 +83,7 @@ public class Recipe extends RealmObject implements Parcelable
         return steps;
     }
 
-    public void setSteps(RealmList<Step> steps) {
+    public void setSteps(List<Step> steps) {
         this.steps = steps;
     }
 

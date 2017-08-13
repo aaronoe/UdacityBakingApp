@@ -1,11 +1,9 @@
 package de.aaronoe.baking.ui.detail;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -13,13 +11,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
-
 import de.aaronoe.baking.R;
 import de.aaronoe.baking.model.Recipe;
-import io.realm.Realm;
-import io.realm.RealmResults;
-import rx.Subscriber;
 
 @EActivity(R.layout.activity_detail)
 public class DetailActivity extends AppCompatActivity implements DetailNavigationAdapter.StepClickCallback {

@@ -4,12 +4,15 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.gson.Gson;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import de.aaronoe.baking.BakingApp;
 import de.aaronoe.baking.model.remote.ApiService;
-import io.realm.Realm;
+import de.aaronoe.baking.storage.RecipeInfoManager;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,16 +33,21 @@ public class NetModule {
 
     @Provides
     @Singleton
-    Realm getDefaultRealmInstance() {
-        return Realm.getDefaultInstance();
-    }
-
-    @Provides
-    @Singleton
     SharedPreferences providesSharedPreferences(Application application) {
         return PreferenceManager.getDefaultSharedPreferences(application);
     }
 
+    @Provides
+    @Singleton
+    Gson provideGson() {
+        return new Gson();
+    }
+
+    @Provides
+    @Singleton
+    RecipeInfoManager provideRecipeInfoManager(Application application) {
+        return new RecipeInfoManager((BakingApp) application);
+    }
 
     @Provides
     @Singleton

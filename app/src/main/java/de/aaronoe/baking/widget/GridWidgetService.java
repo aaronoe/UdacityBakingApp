@@ -6,18 +6,16 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import de.aaronoe.baking.BakingApp;
 import de.aaronoe.baking.R;
-import de.aaronoe.baking.db.RecipeDao;
+import de.aaronoe.baking.model.Ingredient;
 import de.aaronoe.baking.model.Recipe;
 import de.aaronoe.baking.model.remote.ApiService;
-import io.realm.Realm;
-import io.realm.RealmResults;
+import de.aaronoe.baking.storage.RecipeInfoManager;
 import rx.Subscriber;
 
 /**
@@ -37,11 +35,10 @@ public class GridWidgetService extends RemoteViewsService {
 
     public class GridRemoteViewsFactory implements RemoteViewsFactory {
 
-        RecipeDao mRecipeDao;
-        List<Recipe> recipeList;
+        Recipe mRecipe;
 
         @Inject
-        ApiService apiService;
+        RecipeInfoManager recipeService;
 
         public GridRemoteViewsFactory(Application application) {
             ((BakingApp) application).getNetComponent().inject(this);
@@ -54,23 +51,7 @@ public class GridWidgetService extends RemoteViewsService {
         @Override
         public void onDataSetChanged() {
 
-            apiService.getRecipes()
-                    .subscribe(new Subscriber<List<Recipe>>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onNext(List<Recipe> recipes) {
-                            recipeList = recipes;
-                        }
-                    });
+            mRecipe = recipeService.getRecipe();
 
         }
 
@@ -81,21 +62,20 @@ public class GridWidgetService extends RemoteViewsService {
 
         @Override
         public int getCount() {
-            return recipeList == null ? 0 : recipeList.size();
+            return mRecipe == null ? 0 : mRecipe.getIngredients().size();
         }
 
         @Override
         public RemoteViews getViewAt(int i) {
-            Log.d(TAG, "getViewAt() called with: i = [" + i + "]" + recipeList.size());
-            if (recipeList == null || recipeList.size() < i) return null;
-            Recipe recipe = recipeList.get(i);
+            if (mRecipe == null || mRecipe.getIngredients().size() < i) return null;
+            Ingredient ingredient = mRecipe.getIngredients().get(i);
 
             RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_ingredient_item);
 
-            views.setTextViewText(R.id.widget_item_name_tv, recipe.getName());
+            views.setTextViewText(R.id.widget_item_name_tv, ingredient.getIngredient());
 
             Intent fillIntent = new Intent();
-            fillIntent.putExtra(getApplication().getString(R.string.INTENT_KEY_RECIPE), recipe);
+            fillIntent.putExtra(getApplication().getString(R.string.INTENT_KEY_RECIPE), mRecipe);
             views.setOnClickFillInIntent(R.id.widget_item_container, fillIntent);
             return views;
         }

@@ -9,10 +9,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import de.aaronoe.baking.BakingApp;
-import de.aaronoe.baking.db.RecipeDao;
 import de.aaronoe.baking.model.Recipe;
 import de.aaronoe.baking.model.remote.ApiService;
-import io.realm.Realm;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -29,13 +27,11 @@ public class ListViewModel extends AndroidViewModel {
 
     @Inject
     ApiService mApiService;
-    RecipeDao recipeDao;
 
     public ListViewModel(Application bakingApp) {
         super(bakingApp);
         mApplication = (BakingApp) bakingApp;
         mApplication.getNetComponent().inject(this);
-        recipeDao = new RecipeDao();
     }
 
     MutableLiveData<List<Recipe>> getRecipes() {
@@ -65,7 +61,6 @@ public class ListViewModel extends AndroidViewModel {
                     @Override
                     public void onNext(final List<Recipe> recipes) {
                         if (recipes != null) {
-                            recipeDao.saveRecipes(recipes);
                             recipeList.setValue(recipes);
                         }
                     }
