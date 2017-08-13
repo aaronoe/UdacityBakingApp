@@ -3,8 +3,6 @@ package de.aaronoe.baking.ui.list;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.widget.ListView;
 
 import java.util.List;
 
@@ -13,7 +11,6 @@ import javax.inject.Inject;
 import de.aaronoe.baking.BakingApp;
 import de.aaronoe.baking.model.Recipe;
 import de.aaronoe.baking.model.remote.ApiService;
-import io.realm.Realm;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -30,13 +27,11 @@ public class ListViewModel extends AndroidViewModel {
 
     @Inject
     ApiService mApiService;
-    Realm realm;
 
     public ListViewModel(Application bakingApp) {
         super(bakingApp);
         mApplication = (BakingApp) bakingApp;
         mApplication.getNetComponent().inject(this);
-        realm = Realm.getDefaultInstance();
     }
 
     MutableLiveData<List<Recipe>> getRecipes() {
@@ -66,16 +61,11 @@ public class ListViewModel extends AndroidViewModel {
                     @Override
                     public void onNext(final List<Recipe> recipes) {
                         if (recipes != null) {
-                            realm.executeTransactionAsync(new Realm.Transaction() {
-                                @Override
-                                public void execute(Realm realm) {
-                                    realm.copyToRealmOrUpdate(recipes);
-                                }
-                            });
                             recipeList.setValue(recipes);
                         }
                     }
                 });
+
     }
 
 }

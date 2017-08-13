@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -17,10 +16,9 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 import de.aaronoe.baking.AppCompatLifeCycleActivity;
-import de.aaronoe.baking.BakingApp;
 import de.aaronoe.baking.R;
 import de.aaronoe.baking.model.Recipe;
-import de.aaronoe.baking.ui.detail.DetailActivity;
+import de.aaronoe.baking.ui.detail.DetailActivity_;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatLifeCycleActivity implements ListContract.View, RecipeAdapter.RecipeClickListener {
@@ -34,10 +32,10 @@ public class MainActivity extends AppCompatLifeCycleActivity implements ListCont
 
     @AfterViews
     void init() {
+
         ViewModelProviders.of(this).get(ListViewModel.class).getRecipes().observe(this, new Observer<List<Recipe>>() {
             @Override
             public void onChanged(@Nullable List<Recipe> recipes) {
-                Log.d(TAG, "onChanged() called with: recipes = [" + recipes + "]");
                 showItems(recipes);
             }
         });
@@ -46,7 +44,8 @@ public class MainActivity extends AppCompatLifeCycleActivity implements ListCont
 
 
     @Override
-    public void showItems(List<Recipe> recipes) {
+    public void showItems(final List<Recipe> recipes) {
+
         mainListPb.setVisibility(View.INVISIBLE);
         mainListRv.setVisibility(View.VISIBLE);
 
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatLifeCycleActivity implements ListCont
 
     @Override
     public void clickOnRecipe(Recipe recipe) {
-        Intent intent = new Intent(this, DetailActivity.class);
+        Intent intent = new Intent(this, DetailActivity_.class);
         intent.putExtra(getString(R.string.INTENT_KEY_RECIPE), recipe);
         startActivity(intent);
     }
