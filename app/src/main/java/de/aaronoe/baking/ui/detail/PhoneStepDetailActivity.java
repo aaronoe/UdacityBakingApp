@@ -1,10 +1,12 @@
 package de.aaronoe.baking.ui.detail;
 
+import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -17,11 +19,8 @@ import de.aaronoe.baking.model.Recipe;
 import de.aaronoe.baking.model.Step;
 import me.relex.circleindicator.CircleIndicator;
 
-/**
- * Created by private on 8/5/17.
- *
- */
 
+@SuppressLint("Registered")
 @EActivity(R.layout.step_detail_activity)
 public class PhoneStepDetailActivity extends AppCompatActivity {
 
@@ -40,13 +39,19 @@ public class PhoneStepDetailActivity extends AppCompatActivity {
     @AfterViews
     void init() {
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         if (getIntent().hasExtra(getString(R.string.INTENT_KEY_STEP_LIST))) {
             mRecipe = getIntent().getParcelableExtra(getString(R.string.INTENT_KEY_STEP_LIST));
             selectedItemIndex = getIntent().getIntExtra(getString(R.string.INTENT_KEY_POSITION), 0);
             stepAdapter = new StepPagerAdapter(getSupportFragmentManager(), mRecipe.getSteps());
+
             if (getSupportActionBar() != null) {
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setTitle(mRecipe.getName());
             }
+
             viewPager.setAdapter(stepAdapter);
             viewPager.setCurrentItem(selectedItemIndex);
             pagerIndicator.setViewPager(viewPager);
@@ -65,8 +70,7 @@ public class PhoneStepDetailActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            //return StepDetailFragment_.builder().setmStep(stepList.get(position)).build();
-            return null;
+            return StepDetailFragment_.builder().setmStep(stepList.get(position)).build();
         }
 
         @Override
@@ -74,6 +78,17 @@ public class PhoneStepDetailActivity extends AppCompatActivity {
             return stepList == null ? 0 : stepList.size();
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -3,7 +3,6 @@ package de.aaronoe.baking.ui.detail;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -20,6 +19,7 @@ import com.google.android.exoplayer2.util.Util;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 import de.aaronoe.baking.R;
@@ -44,6 +44,9 @@ public class StepDetailFragment extends Fragment  {
 
     SimpleExoPlayer mExoPlayer;
     boolean isTablet;
+
+    @InstanceState
+    long videoTimestamp;
 
     Step mStep;
 
@@ -82,7 +85,9 @@ public class StepDetailFragment extends Fragment  {
                     null, null);
             mExoPlayer.prepare(mediaSource);
             // If this is the tablet then set to play here because setUserVisibileHint is not called
+            mExoPlayer.seekTo(videoTimestamp);
             if (isTablet) mExoPlayer.setPlayWhenReady(true);
+            mExoPlayerView.hideController();
         }
 
     }
@@ -93,10 +98,15 @@ public class StepDetailFragment extends Fragment  {
         releasePlayer();
     }
 
-    private static final String TAG = "StepDetailFragment";
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mExoPlayer == null) return;
+        videoTimestamp = mExoPlayer.getCurrentPosition();
+    }
+
     private void releasePlayer() {
         if (mExoPlayer == null) return;
-        Log.d(TAG, "releasePlayer() called");
         mExoPlayer.stop();
         mExoPlayer.release();
         mExoPlayer = null;
@@ -106,8 +116,17 @@ public class StepDetailFragment extends Fragment  {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+
         if (mExoPlayer != null) {
+
+            if (!isVisibleToUser) {
+                videoTimestamp = mExoPlayer.getCurrentPosition();
+            } else {
+                mExoPlayer.seekTo(videoTimestamp);
+            }
+
             mExoPlayer.setPlayWhenReady(isVisibleToUser);
+
         }
     }
 

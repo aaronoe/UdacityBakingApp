@@ -20,14 +20,14 @@ import de.aaronoe.baking.model.Recipe;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
-    List<Recipe> recipeList;
-    RecipeClickListener clickListener;
+    private List<Recipe> recipeList;
+    private RecipeClickListener clickListener;
 
-    public RecipeAdapter(RecipeClickListener clickListener) {
+    RecipeAdapter(RecipeClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
-    public void setRecipeList(List<Recipe> recipeList) {
+    void setRecipeList(List<Recipe> recipeList) {
         this.recipeList = recipeList;
         notifyDataSetChanged();
     }
@@ -66,7 +66,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         @BindView(R.id.recipe_name_tv)
         TextView recipeNameTv;
 
-        public RecipeViewHolder(View itemView) {
+        RecipeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);

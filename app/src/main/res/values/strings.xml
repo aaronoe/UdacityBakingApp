@@ -10,4 +10,5 @@
     <string name="ingredient_list">Ingredient List</string>
     <string name="show_in_widget">Show in Widget</string>
     <string name="circle">●</string>
+    <string name="empty_widget_text">Please select a recipe from the detail page to display it</string>
 </resources>

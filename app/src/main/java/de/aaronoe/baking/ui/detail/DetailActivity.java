@@ -4,14 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 import javax.inject.Inject;
@@ -30,7 +29,7 @@ public class DetailActivity extends AppCompatActivity implements DetailNavigatio
     @Inject
     RecipeInfoManager recipeInfoManager;
 
-    FrameLayout detailFrameLayout;
+    @InstanceState
     Recipe mRecipe;
     StepDetailFragment detailFragment;
 
@@ -39,8 +38,11 @@ public class DetailActivity extends AppCompatActivity implements DetailNavigatio
 
     @AfterViews
     void init() {
-
         ((BakingApp) getApplication()).getNetComponent().inject(this);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         isTwoPaneLayout = findViewById(R.id.detail_frame) != null;
 

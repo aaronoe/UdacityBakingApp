@@ -12,7 +12,8 @@
         android:layout_centerVertical="true"
         android:layout_margin="8dp"
         android:background="#09C"
-        android:text="Test"
+        android:text="@string/empty_widget_text"
+        android:gravity="center"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold|italic" />

@@ -13,6 +13,7 @@ import dagger.Provides;
 import de.aaronoe.baking.BakingApp;
 import de.aaronoe.baking.model.remote.ApiService;
 import de.aaronoe.baking.storage.RecipeInfoManager;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -51,8 +52,15 @@ public class NetModule {
 
     @Provides
     @Singleton
-    ApiService provideApiInterface() {
+    OkHttpClient provideOkHttpClient() {
+        return new OkHttpClient();
+    }
+
+    @Provides
+    @Singleton
+    ApiService provideApiInterface(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl(mBaseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

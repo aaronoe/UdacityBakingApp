@@ -1,5 +1,6 @@
 package de.aaronoe.baking;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by aoe on 8/5/17.
  */
 
+@SuppressLint("Registered")
 public class AppCompatLifeCycleActivity extends AppCompatActivity implements LifecycleRegistryOwner {
 
     private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);

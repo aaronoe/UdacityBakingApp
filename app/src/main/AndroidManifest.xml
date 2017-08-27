@@ -15,12 +15,17 @@
         <activity android:name=".ui.list.MainActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.detail.DetailActivity_" />
-        <activity android:name=".ui.detail.PhoneStepDetailActivity_" />
+        <activity
+            android:name=".ui.detail.DetailActivity_"
+            android:parentActivityName=".ui.list.MainActivity_" />
+        <activity
+            android:name=".ui.detail.PhoneStepDetailActivity_"
+            android:parentActivityName=".ui.detail.DetailActivity_"
+            />
 
 
         <receiver android:name=".widget.RecipeWidgetProvider">

@@ -1,10 +1,5 @@
 package de.aaronoe.baking.ui.detail;
 
-/**
- * Created by private on 8/1/17.
- *
- *
- */
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -30,12 +25,12 @@ class DetailNavigationAdapter extends RecyclerView.Adapter<DetailNavigationAdapt
     private Context mContext;
     private StepClickCallback callback;
 
-    public DetailNavigationAdapter(Context context, StepClickCallback callback) {
+    DetailNavigationAdapter(Context context, StepClickCallback callback) {
         mContext = context;
         this.callback = callback;
     }
 
-    public void setStepList(List<Step> stepList, List<Ingredient> ingredientList) {
+    void setStepList(List<Step> stepList, List<Ingredient> ingredientList) {
         this.stepList = stepList;
         this.ingredientList = ingredientList;
         notifyDataSetChanged();
@@ -77,7 +72,7 @@ class DetailNavigationAdapter extends RecyclerView.Adapter<DetailNavigationAdapt
         @BindView(R.id.step_number_tv)
         TextView numberTv;
 
-        public StepViewHolder(View itemView) {
+        StepViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -93,17 +88,17 @@ class DetailNavigationAdapter extends RecyclerView.Adapter<DetailNavigationAdapt
     }
 
     private String getIngredientString(List<Ingredient> ingredientsList) {
-        String ingredients = "";
+        StringBuilder ingredients = new StringBuilder();
         for (int i = 0; i < ingredientsList.size(); i++) {
-            ingredients += (" - " + mContext.getString(
+            ingredients.append(" - ").append(mContext.getString(
                     R.string.quantity_ingredient,
                     ingredientsList.get(i).getQuantity(),
-                    ingredientsList.get(i).getMeasure()) + " - " + ingredientsList.get(i).getIngredient() );
+                    ingredientsList.get(i).getMeasure())).append(" - ").append(ingredientsList.get(i).getIngredient());
             if (i != ingredientsList.size() - 1) {
-                ingredients += "\n";
+                ingredients.append("\n");
             }
         }
-        return ingredients;
+        return ingredients.toString();
     }
 
 }
