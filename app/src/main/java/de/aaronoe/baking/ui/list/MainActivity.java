@@ -19,7 +19,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import de.aaronoe.baking.AppCompatLifeCycleActivity;
+import de.aaronoe.baking.custom.AppCompatLifeCycleActivity;
 import de.aaronoe.baking.R;
 import de.aaronoe.baking.model.Recipe;
 import de.aaronoe.baking.testing.SimpleIdlingResource;

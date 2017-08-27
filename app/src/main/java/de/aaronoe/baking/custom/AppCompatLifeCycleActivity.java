@@ -1,4 +1,4 @@
-package de.aaronoe.baking;
+package de.aaronoe.baking.custom;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.LifecycleRegistry;
