@@ -13,7 +13,11 @@ import de.aaronoe.baking.model.Recipe
 import de.aaronoe.baking.widget.RecipeWidgetProvider
 import javax.inject.Inject
 
-
+/**
+ * Used to store recipe information used by the widget,
+ * only one recipe can be saved at a time
+ * Uses GSON for serialization of the Recipe
+ */
 class RecipeInfoManager(val app: BakingApp) {
 
     @Inject
