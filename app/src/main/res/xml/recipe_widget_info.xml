@@ -3,7 +3,7 @@
     android:initialKeyguardLayout="@layout/recipe_widget"
     android:initialLayout="@layout/recipe_widget"
     android:minHeight="180dp"
-    android:minWidth="110dp"
+    android:minWidth="150dp"
     android:previewImage="@mipmap/ic_launcher"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1231231221"

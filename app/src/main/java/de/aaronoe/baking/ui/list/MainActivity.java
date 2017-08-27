@@ -17,14 +17,11 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import de.aaronoe.baking.custom.AppCompatLifeCycleActivity;
 import de.aaronoe.baking.R;
+import de.aaronoe.baking.custom.AppCompatLifeCycleActivity;
 import de.aaronoe.baking.model.Recipe;
 import de.aaronoe.baking.testing.SimpleIdlingResource;
 import de.aaronoe.baking.ui.detail.DetailActivity_;
-import okhttp3.OkHttpClient;
 
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_main)
@@ -34,9 +31,6 @@ public class MainActivity extends AppCompatLifeCycleActivity implements RecipeAd
     RecyclerView mainListRv;
     @ViewById(R.id.main_list_pb)
     ProgressBar mainListPb;
-
-    @Inject
-    OkHttpClient mOkhttpClient;
 
     @Nullable
     SimpleIdlingResource mIdlingResource;

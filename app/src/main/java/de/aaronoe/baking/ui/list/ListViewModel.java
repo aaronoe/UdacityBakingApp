@@ -22,7 +22,6 @@ import rx.schedulers.Schedulers;
 
 public class ListViewModel extends AndroidViewModel {
 
-    private BakingApp mApplication;
     private MutableLiveData<List<Recipe>> recipeList;
 
     @Inject
@@ -30,8 +29,7 @@ public class ListViewModel extends AndroidViewModel {
 
     public ListViewModel(Application bakingApp) {
         super(bakingApp);
-        mApplication = (BakingApp) bakingApp;
-        mApplication.getNetComponent().inject(this);
+        ((BakingApp) bakingApp).getNetComponent().inject(this);
     }
 
     MutableLiveData<List<Recipe>> getRecipes() {

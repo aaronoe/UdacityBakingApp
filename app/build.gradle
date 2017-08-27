@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 
 
 android {
@@ -67,7 +66,6 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha5"
     provided 'javax.annotation:jsr250-api:1.0'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
 
     androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
