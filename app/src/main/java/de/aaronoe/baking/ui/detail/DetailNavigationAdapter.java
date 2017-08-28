@@ -82,7 +82,7 @@ class DetailNavigationAdapter extends RecyclerView.Adapter<DetailNavigationAdapt
         public void onClick(View view) {
             int adapterPosition = getAdapterPosition();
             if (adapterPosition != 0) {
-                callback.onClickStep(adapterPosition);
+                callback.onClickStep(adapterPosition - 1);
             }
         }
     }

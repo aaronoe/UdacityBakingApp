@@ -41,7 +41,7 @@ public class RecipeInfoManager {
         String recipe = mSharedPrefs.getString(RECIPE_KEY, null);
         try {
             return mRecipeAdapter.fromJson(recipe);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
