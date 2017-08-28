@@ -1,10 +1,15 @@
 package de.aaronoe.baking.ui.list;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -22,8 +27,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     private List<Recipe> recipeList;
     private RecipeClickListener clickListener;
+    private Context mContext;
 
-    RecipeAdapter(RecipeClickListener clickListener) {
+    RecipeAdapter(Context context, RecipeClickListener clickListener) {
+        mContext = context;
         this.clickListener = clickListener;
     }
 
@@ -47,6 +54,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         Recipe recipeItem = recipeList.get(position);
         holder.recipeNameTv.setText(recipeItem.getName());
         holder.servingsTv.setText(recipeItem.getServings() + " Servings");
+        if (recipeItem.getImage() != null && !TextUtils.isEmpty(recipeItem.getImage())) {
+            holder.recipeImageView.setVisibility(View.VISIBLE);
+            Picasso.with(mContext)
+                    .load(recipeItem.getImage())
+                    .into(holder.recipeImageView);
+        } else {
+            holder.recipeImageView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -65,6 +80,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         @BindView(R.id.recipe_name_tv)
         TextView recipeNameTv;
+
+        @BindView(R.id.recipe_item_image_view)
+        ImageView recipeImageView;
 
         RecipeViewHolder(View itemView) {
             super(itemView);

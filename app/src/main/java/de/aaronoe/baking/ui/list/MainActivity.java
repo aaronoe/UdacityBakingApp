@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatLifeCycleActivity implements RecipeAd
         mainListPb.setVisibility(View.INVISIBLE);
         mainListRv.setVisibility(View.VISIBLE);
 
-        RecipeAdapter adapter = new RecipeAdapter(this);
+        RecipeAdapter adapter = new RecipeAdapter(this, this);
         adapter.setRecipeList(recipes);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mainListRv.setAdapter(adapter);
