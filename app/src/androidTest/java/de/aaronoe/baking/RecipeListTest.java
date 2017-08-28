@@ -71,11 +71,6 @@ public class RecipeListTest {
                 .atPosition(1))
                 .perform(click());
 
-        // Detail Step now
-
-        onView(withId(R.id.detail_step_description_tv))
-                .check(matches(isDisplayed()));
-
     }
 
     @After
